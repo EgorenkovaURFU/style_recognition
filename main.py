@@ -4,23 +4,25 @@ import torchvision.transforms as transforms
 
 from PIL import Image
 
-from fastapi import FastAPI
-from pydantic import BaseModel, HttpUrl
+from fastapi import FastAPI, Form, Request
 import requests
-import numpy as np
 import uvicorn
 
-
-class Item(BaseModel):
-    url: HttpUrl
+from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get('/')
-async def root():
-    return {'message': 'Welcome!'}
+templates = Jinja2Templates(directory="templates")
+
+
+@app.get("/", response_class=HTMLResponse)
+async def read_items():
+    return FileResponse('templates/index.html')
 
 
 def load_model(path: str):
@@ -29,9 +31,9 @@ def load_model(path: str):
   return model
 
 
-def save_image(item : Item):
-    img_data = requests.get(item.url).content
-    with open('image_name.jpg', 'wb') as handler:
+def save_image(url):
+    img_data = requests.get(url).content
+    with open('static/image_name.jpg', 'wb') as handler:
         handler.write(img_data)
 
 
@@ -63,32 +65,21 @@ def predict(model, image, labels):
   percentage = torch.nn.functional.softmax(out, dim=1)[0] * 100
   return(labels[index[0]], percentage[index[0]].item())
 
-# 
-# if __name__=="__main__":
-#     path = 'wc6_224_balanced.pth'
-#     picture_path = "pictures/Q1389_wd0.jpg"
-#     labels = 'lab.txt'
-#     image = picture_prepare(picture_path)
-#     model = load_model(path)
-#     print(predict(model, image, labels))
 
-
-
-@app.post("/prediction/")
-async def get_net_image_prediction(item: Item):
-  if item.url == "":
-    print(item.url)
+@app.post("/prediction")
+async def get_net_image_prediction(request: Request, url=Form()):
+  if url == "":
     return {"message": "No image link provided"}
     
-  save_image(item)
+  save_image(url)
 
-  image = picture_prepare('image_name.jpg')
+  image = picture_prepare('static/image_name.jpg')
   model = load_model('wc6_224_balanced.pth')
-  print(f'--------------{type(model)}----------------')
   labels = 'lab.txt'
   prediction, score = predict(model, image, labels)
+  context = {'request': request, 'prediction': prediction, 'score': score}
 
-  return {'prediction': prediction, 'score': score}
+  return templates.TemplateResponse("item.html", context)
 
 
 if __name__ == "__main__":
