@@ -40,10 +40,10 @@ def predict(model, image, labels):
   return(labels[index[0]], percentage[index[0]].item())
 
 
-if __name__=="__main__":
-    path = 'wc6_224_balanced.pth'
-    picture_path = "pictures/Q1389_wd0.jpg"
-    labels = 'lab.txt'
-    image = picrure_prepare(picture_path)
-    model = load_model(path)
-    print(predict(model, image, labels))
+# if __name__=="__main__":
+#     path = 'wc6_224_balanced.pth'
+#     picture_path = "pictures/Q1389_wd0.jpg"
+#     labels = 'lab.txt'
+#     image = picrure_prepare(picture_path)
+#     model = load_model(path)
+#     print(predict(model, image, labels))
