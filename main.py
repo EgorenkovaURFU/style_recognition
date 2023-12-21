@@ -4,6 +4,21 @@ import torchvision.transforms as transforms
 
 from PIL import Image
 
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+
+class Item(BaseModel):
+    url: HttpUrl
+
+
+app = FastAPI()
+
+
+@app.get('/')
+async def root():
+    return {'message': 'Welcome!'}
+
 
 def load_model(path: str):
   model = torchvision.models.resnet50(num_classes=6)
@@ -45,11 +60,12 @@ def predict(model, image, labels):
   percentage = torch.nn.functional.softmax(out, dim=1)[0] * 100
   return(labels[index[0]], percentage[index[0]].item())
 
+# 
+# if __name__=="__main__":
+#     path = 'wc6_224_balanced.pth'
+#     picture_path = "pictures/Q1389_wd0.jpg"
+#     labels = 'lab.txt'
+#     image = picrure_prepare(picture_path)
+#     model = load_model(path)
+#     print(predict(model, image, labels))
 
-if __name__=="__main__":
-    path = 'wc6_224_balanced.pth'
-    picture_path = "pictures/Q1389_wd0.jpg"
-    labels = 'lab.txt'
-    image = picrure_prepare(picture_path)
-    model = load_model(path)
-    print(predict(model, image, labels))

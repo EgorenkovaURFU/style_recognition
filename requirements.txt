@@ -1,3 +1,6 @@
 torch
 torchvision
 pytest
+fastapi
+uvicorn
+httpx
