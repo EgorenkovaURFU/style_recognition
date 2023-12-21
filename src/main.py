@@ -7,8 +7,14 @@ from PIL import Image
 
 def load_model(path: str):
   model = torchvision.models.resnet50(num_classes=6)
-  model.load_state_dict(torch.load(path))
+  model.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
   return model
+
+
+# def save_image(item : Item):
+#     img_data = requests.get(item.url).content
+#     with open('image_name.jpg', 'wb') as handler:
+#         handler.write(img_data)
 
 
 def picrure_prepare(picture_path):
@@ -40,10 +46,10 @@ def predict(model, image, labels):
   return(labels[index[0]], percentage[index[0]].item())
 
 
-# if __name__=="__main__":
-#     path = 'wc6_224_balanced.pth'
-#     picture_path = "pictures/Q1389_wd0.jpg"
-#     labels = 'lab.txt'
-#     image = picrure_prepare(picture_path)
-#     model = load_model(path)
-#     print(predict(model, image, labels))
+if __name__=="__main__":
+    path = 'wc6_224_balanced.pth'
+    picture_path = "pictures/Q1389_wd0.jpg"
+    labels = 'lab.txt'
+    image = picrure_prepare(picture_path)
+    model = load_model(path)
+    print(predict(model, image, labels))
