@@ -1,6 +1,6 @@
-Gothic,
-Renaissance,
-Romanesque,
-Baroque,
-Modern Architecture,
-Classical Architecture,
+Gothic
+Renaissance
+Romanesque
+Baroque
+Modern Architecture
+Classical Architecture

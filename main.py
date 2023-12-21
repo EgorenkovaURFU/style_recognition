@@ -6,6 +6,9 @@ from PIL import Image
 
 from fastapi import FastAPI
 from pydantic import BaseModel, HttpUrl
+import requests
+import numpy as np
+import uvicorn
 
 
 class Item(BaseModel):
@@ -26,13 +29,13 @@ def load_model(path: str):
   return model
 
 
-# def save_image(item : Item):
-#     img_data = requests.get(item.url).content
-#     with open('image_name.jpg', 'wb') as handler:
-#         handler.write(img_data)
+def save_image(item : Item):
+    img_data = requests.get(item.url).content
+    with open('image_name.jpg', 'wb') as handler:
+        handler.write(img_data)
 
 
-def picrure_prepare(picture_path):
+def picture_prepare(picture_path):
   img = Image.open(picture_path).convert('RGB')
 
   transform = transforms.Compose([
@@ -65,7 +68,29 @@ def predict(model, image, labels):
 #     path = 'wc6_224_balanced.pth'
 #     picture_path = "pictures/Q1389_wd0.jpg"
 #     labels = 'lab.txt'
-#     image = picrure_prepare(picture_path)
+#     image = picture_prepare(picture_path)
 #     model = load_model(path)
 #     print(predict(model, image, labels))
+
+
+
+@app.post("/prediction/")
+async def get_net_image_prediction(item: Item):
+  if item.url == "":
+    print(item.url)
+    return {"message": "No image link provided"}
+    
+  save_image(item)
+
+  image = picture_prepare('image_name.jpg')
+  model = load_model('wc6_224_balanced.pth')
+  print(f'--------------{type(model)}----------------')
+  labels = 'lab.txt'
+  prediction, score = predict(model, image, labels)
+
+  return {'prediction': prediction, 'score': score}
+
+
+if __name__ == "__main__":
+  uvicorn.run("main:app", host="127.0.0.1", port=5000)
 
