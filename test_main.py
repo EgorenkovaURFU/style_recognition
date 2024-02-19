@@ -11,8 +11,8 @@ def test_read_main():
 
 
 def test_predict():
-    data = {'url': "https://rustytraveltrunk.com/wp-content/uploads/2016/03/\
-            paris-churches-header-1280x640.jpg"}
+    data = {'url': 'https://rustytraveltrunk.com/wp-content/'
+            + 'uploads/2016/03/paris-churches-header-1280x640.jpg'}
     response = client.post('/prediction', data=data)
     prediction = response.context.get('prediction')
     assert response.status_code == 200

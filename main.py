@@ -32,7 +32,9 @@ def load_model(path: str):
 
 
 def save_image(url):
+    print(url)
     img_data = requests.get(url).content
+    print(img_data)
     with open('static/image_name.jpg', 'wb') as handler:
         handler.write(img_data)
 
