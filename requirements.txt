@@ -7,3 +7,4 @@ httpx
 numpy
 python-multipart
 flake8
+wget
