@@ -1,10 +1,6 @@
+streamlit
 torch
 torchvision
-pytest
-fastapi
-uvicorn
-httpx
-numpy
-python-multipart
-flake8
-wget
+torchvision.transforms
+PIL
+os
