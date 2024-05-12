@@ -1,5 +1,5 @@
 import streamlit as st
-
+import pandas as pd
 import torch
 import torchvision
 import torchvision.transforms as transforms
@@ -39,8 +39,7 @@ def load_image(uploaded_file):
     return image
 
 def load_file():
-    uploaded_file = st.file_uploader(label='Выберите файл')
-
+    uploaded_file = st.file_uploader(label='Выберите файл', type=['jpg', 'jpeg'])
     if uploaded_file is not None:
         save_uploadedfile(uploaded_file, path)
         st.session_state.stage = 0
@@ -65,7 +64,13 @@ def predict(model, image, labels):
 
 
 #Основное тело программы
+# Create interface
+st.image(Image.open("src/logo2.jpeg"), caption='Achitecture style timeline')
+st.header("Это программа определения архитектурного стиля здания")
+st.text("В основе программы модель -----. Интерфейс реализован на Streamlit")
 
+
+#Body
 if 'stage' not in st.session_state:
     st.session_state.stage = 0
 
@@ -86,16 +91,20 @@ if st.button('Проанализировать изображения'):
     image_tensor_list = []
     prediction_list = []
     score_list = []
+    df = pd.DataFrame(columns=['Image', 'Arch.type', 'Probability'])
 
-    model = load_model('models\wc6_224_balanced.pth')
+
+    model = load_model('models/wc6_224_balanced.pth')
     labels = 'lab.txt'
 
 
 
     for file in os.listdir(path):
-        print(path, '   ', file)
-        if file.endswith(".jpg"):
-            print(type(file.endswith))
+        #print(path, '   ', file)
+        print('Файл (1): ', file)
+        if file.endswith(".jpg") or file.endswith(".jpeg"):
+            print('Файл (2): ', file)
+            #print(type(file.endswith))
             image_loaded = load_image(path + file)
             st.image(image_loaded)
             image_list.append(image_loaded)
@@ -106,10 +115,18 @@ if st.button('Проанализировать изображения'):
             image_tensor_list.append(image_tensor)
 
             prediction, score = predict(model, image_tensor, labels)
-            st.success(prediction)
-            st.success(score)
             prediction_list.append(prediction)
             score_list.append(score)
+
+            print('Файл (3): ',file,' Стиль: ',prediction,' Вероятность: ',score)
+            df.loc[len(df.index)] = [image_pr, prediction, score]
+            st.success(prediction)
+            st.success(score)
+
+
+    #df = pd.DataFrame(image_pr_list, prediction_list, score_list)
+    st.dataframe(df, use_container_width=True)
+    print(df)
 
     print(prediction_list)
     print(score_list)
