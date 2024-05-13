@@ -32,8 +32,6 @@ def save_uploadedfile(uploadedfile, path):
         f.write(uploadedfile.getbuffer())
         return st.success('Файл сохранен'.format(uploadedfile.name))
 
-
-
 def load_image(uploaded_file):
     image = Image.open(uploaded_file)
     return image
@@ -95,8 +93,7 @@ st.header("Программа сделана в рамках проектног�
 st.markdown("Для работы вы можете сформировать набор изображений зданий и "
         "далее определить архитектурный стиль по собранному набору изображений")
 
-
-#Body
+#Process part
 if 'stage' not in st.session_state:
     st.session_state.stage = 0
 
@@ -109,7 +106,6 @@ if st.sidebar.button('Добавить изображение в коллекц�
 if st.session_state.stage == 1:
     load_file()
     #file = load_file()
-
 
 if st.sidebar.button('Проанализировать изображения'):
     image_list = []
