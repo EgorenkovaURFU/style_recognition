@@ -1,6 +1,6 @@
+pytest
+flake8
 streamlit==1.24.0
 torch
 torchvision
-torchvision.transforms
-PIL
-os
+Pillow
