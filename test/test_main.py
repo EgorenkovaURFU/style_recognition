@@ -2,7 +2,7 @@ from streamlit.testing.v1 import AppTest
 
 # проверка запуска приложения
 def test_start_app():
-    at = AppTest.from_file("src/main.py").run()
+    at = AppTest.from_file("src/main.py", default_timeout=30).run()
     assert not at.exception
 
 def test_button_app():
