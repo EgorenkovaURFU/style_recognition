@@ -5,15 +5,15 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "Test_brunch" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "Test_brunch" ]
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  build: 
 
     runs-on: ubuntu-latest
 
