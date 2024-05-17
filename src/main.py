@@ -7,6 +7,7 @@ from PIL import Image
 from io import BytesIO
 import base64
 import os
+import uuid
 
 
 def picture_prepare(img_source):
@@ -160,3 +161,16 @@ if st.sidebar.button("Проанализировать изображения"):
         classes="table table-striped",
     )
     st.write(df, unsafe_allow_html=True)
+
+    from itertools import zip_longest
+
+
+#    def grouper(df, n, fillvalue=None):
+       # args = [iter(df)] * n
+      #  return zip_longest(*args, fillvalue=fillvalue)
+
+#    for g in grouper(range(1, 51), 10):
+      #  a = print(g, 'data{}.txt'.format(g[-1]))
+
+    with open('result/' + str(uuid.uuid4()), "w") as file1:
+        file1.write(df)
