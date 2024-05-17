@@ -3,3 +3,4 @@ __pycache__
 virtual_env_test
 .idea
 .pytest_cache
+/result

@@ -7,6 +7,7 @@ from PIL import Image
 from io import BytesIO
 import base64
 import os
+import uuid
 
 
 def picture_prepare(img_source):
@@ -160,3 +161,5 @@ if st.sidebar.button("Проанализировать изображения"):
         classes="table table-striped",
     )
     st.write(df, unsafe_allow_html=True)
+    with open('result/' + str(uuid.uuid4()), "w") as file1:
+        file1.write(df)
