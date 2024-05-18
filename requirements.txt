@@ -1,8 +1,9 @@
 pytest
 flake8
 streamlit==1.34.0
+dvc
+dvc-gdrive
 torch
 torchvision
 Pillow
-dvc
-dvc-gdrive
+
