@@ -5,7 +5,12 @@ pipeline {
         BUILD = "${JENKINS_HOME}/workspace/style_recognition"
         DOCKER_IMAGE_NAME = 'style_recognition'
     }
-
+    stages {
+        stage('Install DVC') {
+            steps {
+                sh 'pip install dvc'
+            }
+        }
     stages{
         
         stage('Build Docker image'){
@@ -24,7 +29,7 @@ pipeline {
             steps{
                 sh 'pip install pytest'
                 sh 'pip install streamlit'
-                sh 'pip install dvc'
+               
             }
         }
         
@@ -35,9 +40,7 @@ pipeline {
         }
         stage( 'DVC'){
             steps{
-                sh 'dvc add result'
-                sh 'dvc commit -m "Создание DVC-метки"'
-                sh 'dvc push'
+             sh 'dvc push'
             }
         }
     }
