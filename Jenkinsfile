@@ -20,20 +20,22 @@ pipeline {
             }
         }
 
-        stage( 'Install pytest'){
+        stage( 'Installation modules'){
             steps{
                 sh 'pip install pytest'
                 sh 'pip install streamlit'
+                sh 'pip install dvc'
+            }
+        }
+        
+        stage( 'RUN Test'){
+            steps{
+                sh 'python3 test/test_main.py'
             }
         }
         stage( 'DVC'){
             steps{
                 sh 'dvc pull -r result'
-            }
-        }
-        stage( 'RUN Test'){
-            steps{
-                sh 'python3 test/test_main.py'
             }
         }
     }
