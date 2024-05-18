@@ -11,7 +11,7 @@ pipeline {
                 sh 'pip install dvc'
             }
         }
-    stages{
+    
         
         stage('Build Docker image'){
             steps {
