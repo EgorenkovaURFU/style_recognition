@@ -35,7 +35,7 @@ pipeline {
         }
         stage( 'DVC'){
             steps{
-                sh 'dvc add '
+                sh 'dvc add result'
                 sh 'dvc commit -m "результат"'
                 sh 'dvc push '
             }
