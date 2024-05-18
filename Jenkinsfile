@@ -39,7 +39,8 @@ pipeline {
         }
         stage( 'DVC'){
             steps{
-                sh 'dvc commit 
+                sh 'dvc add result'  // Добавьте файлы в DVC
+                sh 'dvc commit -m "Создание DVC-метки"' // Исправьте команду
                 sh 'dvc push'
             }
         }
