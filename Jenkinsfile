@@ -20,7 +20,7 @@ pipeline {
             }
         }
 
-        stage( 'Install pytest'){
+        stage( 'Installation of modules'){
             steps{
                 sh 'pip install pytest'
                 sh 'pip install streamlit'
