@@ -28,7 +28,7 @@ pipeline {
         }
         stage( 'DVC'){
             steps{
-                sh 'dvc pull -r result'
+                sh 'dvc push -r result'
             }
         }
         stage( 'RUN Test'){
