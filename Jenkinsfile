@@ -24,6 +24,7 @@ pipeline {
             steps{
                 sh 'pip install pytest'
                 sh 'pip install streamlit'
+                sh 'pip inatall dvc'
             }
         }
         stage( 'DVC'){
