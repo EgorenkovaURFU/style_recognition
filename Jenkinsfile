@@ -7,7 +7,6 @@ pipeline {
     }
 
     stages{
-        
         stage('Build Docker image'){
             steps {
                 sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
@@ -20,6 +19,7 @@ pipeline {
             }
         }
 
+
         stage( 'Installation of modules'){
             steps{
                 sh 'pip install pytest'
@@ -28,6 +28,9 @@ pipeline {
                 sh 'pip install dvc-gdrive'
             }
         }
+
+        
+
         stage( 'RUN Test'){
             steps{
                 sh 'python3 test/test_main.py'
@@ -35,6 +38,7 @@ pipeline {
         }
         stage( 'DVC'){
             steps{
+
                 sh 'dvc add result'
                 sh 'dvc commit -m "результат"'
                 sh 'dvc push '
