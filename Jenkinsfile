@@ -11,11 +11,7 @@ pipeline {
                 sh 'pip install dvc'
             }
         }
-        stage('Init DVC') {
-            steps {
-                sh 'dvc init'
-            }
-        }
+       
         stage('Build Docker image'){
             steps {
                 sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
@@ -43,8 +39,7 @@ pipeline {
         }
         stage( 'DVC'){
             steps{
-                sh 'dvc add result'
-                sh 'dvc commit -m "Создание DVC-метки"'
+                sh 'dvc commit 
                 sh 'dvc push'
             }
         }
