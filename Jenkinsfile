@@ -27,14 +27,14 @@ pipeline {
                 sh 'pip inatall dvc'
             }
         }
-        stage( 'DVC'){
-            steps{
-                sh 'dvc push -r result'
-            }
-        }
         stage( 'RUN Test'){
             steps{
                 sh 'python3 test/test_main.py'
+            }
+        }
+        stage( 'DVC'){
+            steps{
+                sh 'dvc push -r result'
             }
         }
     }
