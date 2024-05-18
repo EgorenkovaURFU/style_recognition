@@ -24,7 +24,8 @@ pipeline {
             steps{
                 sh 'pip install pytest'
                 sh 'pip install streamlit'
-                sh 'pip inatall dvc'
+                sh 'pip install dvc'
+                sh 'pip install dvc-gdrive'
             }
         }
         stage( 'RUN Test'){
