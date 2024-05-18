@@ -26,7 +26,11 @@ pipeline {
                 sh 'pip install streamlit'
             }
         }
-        
+        stage( 'DVC'){
+            steps{
+                sh 'dvc pull -r result'
+            }
+        }
         stage( 'RUN Test'){
             steps{
                 sh 'python3 test/test_main.py'
