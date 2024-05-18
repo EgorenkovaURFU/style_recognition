@@ -35,7 +35,7 @@ pipeline {
         }
         stage( 'DVC'){
             steps{
-                sh 'dvc pull -r '
+                sh 'dvc push'
             }
         }
     }
