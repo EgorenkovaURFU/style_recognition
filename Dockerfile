@@ -16,7 +16,7 @@ RUN pip install --upgrade pip
 
 # Установите  зависимости  из  `requirements.txt`
 COPY requirements.txt .
-RUN pip install -r --no-cache-dir requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 
