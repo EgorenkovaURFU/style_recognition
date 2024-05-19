@@ -22,7 +22,7 @@ pipeline {
 
         stage( 'Installation of modules'){
             steps{
-                sh 'pip install pytest'
+                sh 'pip3 install pytest'
                 sh 'pip install streamlit'
                 sh 'pip install dvc'
                 sh 'pip install dvc-gdrive'
