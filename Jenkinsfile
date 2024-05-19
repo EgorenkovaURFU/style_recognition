@@ -9,13 +9,13 @@ pipeline {
     stages{
         stage('Build Docker image'){
             steps {
-                sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
+                sh 'docker build --no-cache -t ${DOCKER_IMAGE_NAME} .'
             }
         }
         
         stage( 'RUN Docker'){
             steps{
-                sh 'docker run --no-cache -d -p 8501:8501 --name style_recognition-app2 ${DOCKER_IMAGE_NAME}'
+                sh 'docker run  -d -p 8501:8501 --name style_recognition-app2 ${DOCKER_IMAGE_NAME}'
             }
         }
 
