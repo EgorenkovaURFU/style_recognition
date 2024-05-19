@@ -1,16 +1,22 @@
-FROM python:3.9-slim
-USER root
-
-# Установка зависимостей
-RUN apt-get update 
-RUN apt-get install -y --no-install-recommends build-essential && rm -rf /var/lib/apt/lists/* && apt-get clean
+FROM python:3.9-slim AS builder
 
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install -r --no-cache-dir requirements.txt
 
-COPY . .
+# Установка зависимостей
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean \
+    && pip install --upgrade pip \
+    && pip install -r --no-cache-dir requirements.txt
 
-CMD ["streamlit", "run", "src/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY --from=builder /app/ .
+
+# Задайте точку входа
+CMD ["streamlit", "run", "src/main.py"] 
