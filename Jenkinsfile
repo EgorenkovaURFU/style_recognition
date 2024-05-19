@@ -31,11 +31,11 @@ pipeline {
 
         
 
-        // stage( 'RUN Test'){
-        //     steps{
-        //         sh 'python3 test/test_main.py'
-        //     }
-        // }
+         stage( 'RUN Test'){
+            steps{
+                sh 'python3 test/test_main.py'
+            }
+        }
         stage( 'DVC'){
             steps{
 
