@@ -28,7 +28,7 @@ pipeline {
         stage( 'RUN Docker'){
             steps{
                 sh 'docker run --rm -d -v $(pwd)/result:/app/result -p 8501:8501 --name style_recognition-app ${DOCKER_IMAGE_NAME}'
-                sh 'docker exec -it style_recognition-app bash'
+                sh 'docker exec style_recognition-app bash'
                 sh 'pytest test'
                 sh 'exit'
             }
