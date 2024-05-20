@@ -4,20 +4,36 @@ pipeline {
         JENKINS_HOME = "$JENKINS_HOME"
         BUILD = "${JENKINS_HOME}/workspace/style_recognition"
         DOCKER_IMAGE_NAME = 'style_recognition'
+        DOCKER_IMAGE_TEST = 'test_application'
     }
 
     stages{
+
+        // stage('Build Doker image to test application') {
+        //     sh 'docker build -f test.Dockerfile -t ${DOCKER_IMAGE_TEST}'
+        // }
+
+        // stage('RUN Tests') {
+        //     steps{
+        //         sh 'docker run -rm ${DOCKER_IMAGE_TEST}'
+        //     }
+        // }
+
         stage('Build Docker image'){
             steps {
-                sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
+                sh 'docker build -f app.Dockerfile -t ${DOCKER_IMAGE_NAME} .'
             }
         }
         
         stage( 'RUN Docker'){
             steps{
-                sh 'docker run -d -p 8501:8501 --name style_recognition-app ${DOCKER_IMAGE_NAME}'
+                sh 'docker run --rm -d -v $(pwd)/result:/app/result -p 8501:8501 --name style_recognition-app ${DOCKER_IMAGE_NAME}'
+                sh 'docker exec -it style_recognition-app bash'
+                sh 'pytest test'
             }
+
         }
+
 
 
         // stage( 'Installation of modules'){

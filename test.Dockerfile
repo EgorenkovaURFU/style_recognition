@@ -13,9 +13,11 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # COPY . .
-RUN pytest /test
+# RUN pytest /test
 
-CMD ["streamlit", "run", "src/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["pytest", "test"]
+
+# CMD ["streamlit", "run", "src/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
 
 # FROM python:3.9-slim as compiler
 # ENV PYTHONUNBUFFERED 1
