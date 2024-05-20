@@ -29,7 +29,8 @@ pipeline {
             steps{
                 sh 'docker run --rm -d -v $(pwd)/result:/app/result -p 8501:8501 --name style_recognition-app ${DOCKER_IMAGE_NAME}'
                 sh 'docker exec style_recognition-app bash'
-                sh 'pytest test'
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'pytest ./test/test_main.py'
                 sh 'exit'
             }
 
