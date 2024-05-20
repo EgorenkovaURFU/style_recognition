@@ -28,10 +28,10 @@ pipeline {
         stage( 'RUN Docker'){
             steps{
                 sh 'docker run --rm -d -v $(pwd)/result:/app/result -p 8501:8501 --name style_recognition-app ${DOCKER_IMAGE_NAME}'
-                sh 'docker exec style_recognition-app bash'
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'pytest ./test/test_main.py'}
-                sh 'exit'
+                // sh 'docker exec style_recognition-app bash'
+                // withEnv(["HOME=${env.WORKSPACE}"]) {
+                //     sh 'pytest ./test/test_main.py'}
+                // sh 'exit'
             }
 
         }
@@ -49,18 +49,18 @@ pipeline {
 
         
 
-        //  stage( 'RUN Test'){
-        //     steps{
-        //         sh 'python3 test/test_main.py'
-        //     }
-        // }
-        // stage( 'DVC'){
-        //     steps{
+         stage( 'RUN Test'){
+            steps{
+                sh 'python3 test/test_main.py'
+            }
+        }
+        stage( 'DVC'){
+            steps{
 
-        //         sh 'dvc add result'
-        //         sh 'dvc commit -m "результат"'
-        //         sh 'dvc push '
-        //     }
-        // }
+                sh 'dvc add result'
+                sh 'dvc commit -m "результат"'
+                sh 'dvc push '
+            }
+        }
     }
 }
