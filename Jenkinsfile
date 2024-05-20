@@ -8,6 +8,12 @@ pipeline {
     }
 
     stages{
+         stage ('Create venv') {
+            steps {
+                sh 'python3 -m venv .venv'
+                sh 'source .venv/bin/activate'
+            }
+        }
 
         stage( 'Installation of modules'){
             steps{
