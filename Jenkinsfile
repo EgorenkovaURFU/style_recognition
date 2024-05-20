@@ -38,14 +38,14 @@ pipeline {
 
 
 
-        // stage( 'Installation of modules'){
-        //     steps{
-        //         sh 'pip install pytest'
-        //         sh 'pip install streamlit'
-        //         sh 'pip install dvc'
-        //         sh 'pip install dvc-gdrive'
-        //     }
-        // }
+        stage( 'Installation of modules'){
+            steps{
+                sh 'pip install pytest'
+                sh 'pip install streamlit'
+                sh 'pip install dvc'
+                sh 'pip install dvc-gdrive'
+            }
+        }
 
         
 
