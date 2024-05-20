@@ -9,6 +9,16 @@ pipeline {
 
     stages{
 
+        stage( 'Installation of modules'){
+            steps{
+                sh 'pip install pytest'
+                sh 'pip install streamlit'
+                sh 'pip install dvc'
+                sh 'pip install dvc-gdrive'
+            }
+        }
+
+
         // stage('Build Doker image to test application') {
         //     sh 'docker build -f test.Dockerfile -t ${DOCKER_IMAGE_TEST}'
         // }
@@ -35,18 +45,6 @@ pipeline {
             }
 
         }
-
-
-
-        stage( 'Installation of modules'){
-            steps{
-                sh 'pip install pytest'
-                sh 'pip install streamlit'
-                sh 'pip install dvc'
-                sh 'pip install dvc-gdrive'
-            }
-        }
-
         
 
         // stage( 'RUN Test'){
