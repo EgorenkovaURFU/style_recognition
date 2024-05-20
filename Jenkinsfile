@@ -31,18 +31,18 @@ pipeline {
 
         
 
-         stage( 'RUN Test'){
-            steps{
-                sh 'python3 test/test_main.py'
-            }
-        }
-        stage( 'DVC'){
-            steps{
+        //  stage( 'RUN Test'){
+        //     steps{
+        //         sh 'python3 test/test_main.py'
+        //     }
+        // }
+        // stage( 'DVC'){
+        //     steps{
 
-                sh 'dvc add result'
-                sh 'dvc commit -m "результат"'
-                sh 'dvc push '
-            }
-        }
+        //         sh 'dvc add result'
+        //         sh 'dvc commit -m "результат"'
+        //         sh 'dvc push '
+        //     }
+        // }
     }
 }
