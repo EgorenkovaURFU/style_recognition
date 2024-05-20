@@ -8,6 +8,14 @@ pipeline {
     }
 
     stages{
+         stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                ''' 
+            }
+        }
          stage ('Create venv') {
             steps {
                 sh 'python3 -m venv .venv'
