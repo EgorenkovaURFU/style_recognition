@@ -34,7 +34,7 @@ pipeline {
 
 
         // stage('Build Doker image to test application') {
-        //     sh 'docker build -f test.Dockerfile -t ${DOCKER_IMAGE_TEST}'
+        //     sh 'docker build -f dockerfiles/test.Dockerfile -t ${DOCKER_IMAGE_TEST}'
         // }
 
         // stage('RUN Tests') {
@@ -45,7 +45,7 @@ pipeline {
 
         stage('Build Docker image'){
             steps {
-                sh 'docker build -f app.Dockerfile -t ${DOCKER_IMAGE_NAME} .'
+                sh 'docker build -f dockerfiles/app.Dockerfile -t ${DOCKER_IMAGE_NAME} .'
             }
         }
         

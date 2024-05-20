@@ -11,7 +11,7 @@ This application is able to help you to know more about architecture.
 5. Press button "Проанализировать изображения" to analyze existing pictures
 6. Press button "Добавить изображения в коллекцию из файла" to add new picture in the format .jpg/.jpeg
 
-![](./Pictures/Home%20page.jpg)
+![](./design/Home%20page.jpg)
 
 > [!note]
 > You can classify architecture with one of these styles:

@@ -95,7 +95,7 @@ st.sidebar.info("В основе программы модель Resnet50 от T
                 "Интерфейс реализован на Streamlit")
 
 # Main window
-st.image(Image.open("src/Logo2.jpeg"),
+st.image(Image.open("src/Logo.jpeg"),
          caption="Achitecture style timeline",
          width=600)
 st.header("Программа сделана в рамках проектного курса MLops")
